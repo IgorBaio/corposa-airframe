@@ -5,8 +5,8 @@ import classNames from 'classnames';
 import { ThemeConsumer } from '../../../components/Theme';
 
 const logos = {
-    'white': require('./../../../images/logos/logo-white.svg'),
-    'primary': require('./../../../images/logos/logo-primary.svg'),
+    'white': require('./../../../images/logos/LogoCorpoCor.png'),
+    'primary': require('./../../../images/logos/LogoCorpoCor.png'),
     'success': require('./../../../images/logos/logo-success.svg'),
     'warning': require('./../../../images/logos/logo-warning.svg'),
     'danger': require('./../../../images/logos/logo-danger.svg'),
@@ -41,6 +41,9 @@ const LogoThemed = ({ checkBackground, className, ...otherProps }) => (
                         getLogoUrl(style, color)
                 }
                 className={ classNames('d-block', className) }
+                style={{
+                    width: "100%"
+                }}
                 alt="Airframe Logo"
                 { ...otherProps }
             />

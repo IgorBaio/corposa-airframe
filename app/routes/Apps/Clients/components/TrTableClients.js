@@ -12,6 +12,7 @@ import {
 } from "./../../../../components";
 
 import { randomArray, tag } from "./../../../../utilities";
+import { rowActivated } from "../styles";
 
 const status = ["secondary", "success", "warning", "danger"];
 
@@ -30,21 +31,8 @@ const TrTableClients = ({
   console.log('selected?.id', selected?.id)
 return (
   <React.Fragment>
-    <tr>
-      <td className="align-middle">
-        <CustomInput
-          type="checkbox"
-          id={`trTableClients-${id === selected?.id ? id: ''}`}
-          label=""
-          inline
-          checked={id === selected?.id}
-          onClick={()=>{
-            
-            console.log('client?.id', client?.id)
-            setSelected(client)
-          }}
-        />
-      </td>
+    <tr style={id === selected?.id ? rowActivated: {}} onClick={()=>setSelected(client)}>
+     
       {/* <td className="align-middle">
         <a href="#" id={`trTableClientsTooltip-${props.id}`}>
           <i className="fa fa-fw fa-star-o"></i>

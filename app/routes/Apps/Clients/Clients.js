@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { faker } from "@faker-js/faker";
 
 import {
   Container,
@@ -24,7 +23,6 @@ import {
 } from "./../../../components";
 
 import { HeaderMain } from "../../components/HeaderMain";
-import { Profile } from "../../components/Profile";
 import { DlRowContacts } from "../../components/Profile/DlRowContacts";
 import { DlRowAddress } from "../../components/Profile/DlRowAddress";
 import { TrTableClients } from "./components/TrTableClients";
@@ -35,24 +33,20 @@ import { getClients } from "../../../functions/GetClients";
 import { randomArray, tag } from "./../../../utilities";
 import { allColors } from "../../../../packages/dashboard-style/scss/bootstrap/variables";
 import { AsyncSearch } from "../../Forms/Typeahead/components/AsynchronousSearchingCorpo";
-import { asyncSearch, buttongroup, inputSearch } from "./styles";
+import { asyncSearch, buttongroup } from "./styles";
 import { useClients } from "../../../stores/clients";
+import { CorpoClientFormModal } from "../../../components/CorpoClientFormModal";
 
 const Clients = () => {
   const [selected, setSelected] = useState();
-  const [clients, setClients] = useState();
-  const [clientsFilter, setClientsFilter] = useState();
 
-  // const { clients, clientsFilter, setClients, setClientsFilter } = useClients(state => state)
+  const { clients, clientsFilter, setClients, setClientsFilter } = useClients(state => state)
+  console.log('clients', clients)
   const searchClients = (text) => {
     console.log("text", text);
     // Por hora, buscar nos que ja estão em memória
     let clientsAux = [];
-    clients.filter((client) => {
-      // console.log('client?.nome?.includes(text)', client?.nome?.includes(text))
-      // console.log('client?.sobrenome?.includes(text)', client?.sobrenome?.includes(text))
-      // console.log('client?.celular?.includes(text)', client?.celular?.includes(text))||
-      // console.log('client?.celular?.includes(text)', client?.email?.includes(text))
+    clients?.filter((client) => {
       if (
         client?.nome?.includes(text) ||
         client?.sobrenome?.includes(text) ||
@@ -66,19 +60,23 @@ const Clients = () => {
     });
   };
 
-  // const navigate = useNavigate()
   useEffect(() => {
-    // const email = localStorage.getItem('@email')
-    // if (email) {
+   
 
     getClients().then((response) => {
       console.log("clients response", response);
-      setClients(response?.data);
-      setSelected(response?.data[0]);
+      // setClients(response?.data);
+      // setSelected(response?.data[0]);
     });
 
     // }
   }, []);
+
+  useEffect(()=>{
+    if(clients){
+      setSelected(clients[0])
+    }
+  },[clients])
 
   return (
     <React.Fragment>
@@ -98,24 +96,17 @@ const Clients = () => {
                         </UncontrolledTabs.NavLink>
                       </NavItem>
                     </Nav>
-                    {/* <div style={inputSearch}>
-                      <AsyncSearch style={asyncSearch} />
-                    </div> */}
                     <ButtonToolbar className="ml-auto w-75">
                       <ButtonGroup className="w-75" style={buttongroup}>
-                        {/* <Button
-                           color="link"
-                           className="align-self-center mr-2 text-decoration-none"
-                           id="tooltipSettings"
-                           >
-                           <i className="fa fa-fw fa-gear"></i>
-                          </Button> */}
+                        
                         <AsyncSearch
                           style={asyncSearch}
                           onSearch={searchClients}
                           clients={clients}
+                          options={clientsFilter}
                           clientsFilter={clientsFilter}
                           setClientsFilter={setClientsFilter}
+                          setSelected={setSelected}
                         />
                       </ButtonGroup>
                       <ButtonGroup className="ml-auto end">
@@ -126,9 +117,8 @@ const Clients = () => {
                             fontWeight: "bold",
                             border: "none",
                           }}
-                          // color="primary"
                           className="align-self-center"
-                          id="tooltipAddNew"
+                          id="modalDefault304"
                         >
                           <i className="fa fa-fw fa-plus"></i>
                         </Button>
@@ -136,7 +126,7 @@ const Clients = () => {
                     </ButtonToolbar>
                     <UncontrolledTooltip
                       placement="right"
-                      target="tooltipAddNew"
+                      target="modalDefault304"
                     >
                       Adicionar novo
                     </UncontrolledTooltip>
@@ -145,30 +135,16 @@ const Clients = () => {
 
                 <UncontrolledTabs.TabContent>
                   <TabPane tabId="clients">
-                    {/* START Table */}
                     <Table className="mb-0" hover responsive>
                       <thead>
                         <tr>
-                          <th className="bt-0"></th>
-                          {/* <th className="bt-0"></th> */}
                           <th className="bt-0">Name</th>
                           <th className="bt-0">Email</th>
-                          <th className="text-right bt-0">Phone</th>
-                          <th className="text-right bt-0">Label</th>
+                          <th className=" bt-0">Phone</th>
+                          <th className=" bt-0">Label</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {/* MAP com os clientes
-                        Passar como props:
-                          Id,
-                          setSelected,
-                          name,
-                          email,
-                          celular,
-                          labels
-
-                        */}
-                        {/* <TrTableClients id="1" /> */}
                         {clients?.map((client) => (
                           <TrTableClients
                             id={client.id}
@@ -181,36 +157,6 @@ const Clients = () => {
                             client={client}
                           />
                         ))}
-                      </tbody>
-                    </Table>
-                    {/* END Table */}
-                  </TabPane>
-                  <TabPane tabId="companies">
-                    {/* START Table */}
-                    <Table className="mb-0" hover responsive>
-                      <thead>
-                        <tr>
-                          <th className="bt-0"></th>
-                          <th className="bt-0"></th>
-                          <th className="bt-0">Name</th>
-                          <th className="bt-0">PM</th>
-                          <th className="text-right bt-0">Phone</th>
-                          <th className="text-right bt-0">Label</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <TrTableCompanies />
-                        <TrTableCompanies id="2" />
-                        <TrTableCompanies id="3" />
-                        <TrTableCompanies id="4" />
-                        <TrTableCompanies id="5" />
-                        <TrTableCompanies id="6" />
-                        <TrTableCompanies id="7" />
-                        <TrTableCompanies id="8" />
-                        <TrTableCompanies id="9" />
-                        <TrTableCompanies id="10" />
-                        <TrTableCompanies id="11" />
-                        <TrTableCompanies id="12" />
                       </tbody>
                     </Table>
                     {/* END Table */}
@@ -264,14 +210,6 @@ const Clients = () => {
                       <h2 className="mb-1">23</h2>
                       <span>Procedimentos</span>
                     </li>
-                    {/* <li className="list-inline-item text-center">
-                    <h2 className="mb-1">13</h2>
-                    <span>Tasks</span>
-                  </li>
-                  <li className="list-inline-item text-center">
-                    <h2 className="mb-1">5</h2>
-                    <span>Relases</span>
-                  </li> */}
                   </ul>
                 </div>
                 <Row className="mt-3">
@@ -295,14 +233,6 @@ const Clients = () => {
                     </Button>
                   </Col>
                 </Row>
-                {/* <div className="mt-4 mb-2">
-                <span className="small">Profile</span>
-              </div>
-              <p className="text-left">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta
-                sapiente earum, necessitatibus commodi eius pariatur repudiandae
-                cum sunt officiis ex!
-              </p> */}
                 <div className="mt-4 mb-2">
                   <span className="small">Labels</span>
                 </div>
@@ -346,7 +276,7 @@ const Clients = () => {
             </Card>
           </Col>
         </Row>
-        {/* END Content */}
+        <CorpoClientFormModal  />
       </Container>
     </React.Fragment>
   );

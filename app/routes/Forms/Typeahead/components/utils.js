@@ -12,3 +12,14 @@ export function makeAndHandleRequest(query, page = 1) {
       return { options, total_count };
     });
 }
+export function makeClientAndHandleRequest(query, page = 1) {
+  return fetch("http://localhost:8080/api/clientes")
+    .then((resp) => resp.json())
+    .then((items) => {
+      const options = items.data.map((i) => ({
+        id: i.id,
+        login: i.nome,
+      }));
+      return { options };
+    });
+}
