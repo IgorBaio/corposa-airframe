@@ -28,7 +28,14 @@ const colors = {
     textoBolder: "#AA3214",
     titulos: "#AA765E",//bold 900, regular 100
     texto: "#333333",
-    genericButton: "#F5E5E0"
+    genericButton: "#F5E5E0",
+    cota: "#E2725B",
+    cotaClaro: "#F4A698",
+    cotaEscuro: "#CC4D33",
+    cotaAvermelhado: "#D05C4B",
+    cotaAlaranjado: "#E4844E",
+    cotaNeutro: "#A65844"
+   
   };
   
   const socialColors = {

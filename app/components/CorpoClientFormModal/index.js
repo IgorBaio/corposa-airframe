@@ -14,15 +14,15 @@ import {
 } from "./../../components";
 import { ModalBodyContent } from "./ModalBodyContent";
 
-export const CorpoClientFormModal = () => (
-  <Container>
+export const CorpoClientFormModal = ({target}) => (
+  <Container className="d-none">
     <Row>
       <Col lg={8}>
         <Card className="mb-3 text-center">
           <CardBody>
             
             <UncontrolledModal
-              target="modalDefault304"
+              target={target}
               className="modal-outline-warning"
             
             >

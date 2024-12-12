@@ -13,7 +13,11 @@ export const asyncSearch = {
 }
 
 export const rowActivated = {
-    backgroundColor: allColors.corpo,
+    backgroundColor: allColors.cota,
     color: allColors.white,
     fontWeight: "bold"
+}
+
+export const headerTitle = {
+    color: allColors.cotaEscuro
 }

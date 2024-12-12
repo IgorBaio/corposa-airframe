@@ -81,7 +81,7 @@ const Clients = () => {
   return (
     <React.Fragment>
       <Container>
-        <HeaderMain title="Clientes" className="mb-5 mt-4" />
+        <HeaderMain title="Clientes" className="mb-5 mt-4"  />
         {/* START Content */}
         <Row>
           <Col lg={8}>
@@ -89,7 +89,7 @@ const Clients = () => {
               <UncontrolledTabs initialActiveTabId="clients">
                 <CardBody>
                   <div className="d-flex">
-                    <Nav pills>
+                  <Nav pills>
                       <NavItem>
                         <UncontrolledTabs.NavLink tabId="clients">
                           Clientes
@@ -216,7 +216,7 @@ const Clients = () => {
                   <Col sm={6}>
                     <Button
                       style={{
-                        backgroundColor: allColors.corpo,
+                        backgroundColor: allColors.cota,
                         color: "white",
                         fontWeight: "bold",
                         border: "none",
@@ -276,7 +276,7 @@ const Clients = () => {
             </Card>
           </Col>
         </Row>
-        <CorpoClientFormModal  />
+        <CorpoClientFormModal target="modalDefault304" />
       </Container>
     </React.Fragment>
   );
