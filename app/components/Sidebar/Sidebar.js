@@ -10,13 +10,14 @@ const Sidebar = (props) => (
         { /* Enable OuterClick only in sidebar overlay mode */}
         <OuterClick
             active={
-                !props.pageConfig.sidebarCollapsed && (
+                !props.pageConfig.sidebarCollapsed 
+                && (
                     props.pageConfig.screenSize === 'xs' ||
                     props.pageConfig.screenSize === 'sm' ||
                     props.pageConfig.screenSize === 'md'
                 )
             }
-            onClickOutside={ () => props.pageConfig.toggleSidebar() }
+            // onClickOutside={ () => props.pageConfig.toggleSidebar() }
         >
             <SidebarContent { ...props } />
         </OuterClick>
